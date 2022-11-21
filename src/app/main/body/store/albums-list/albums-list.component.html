@@ -1,0 +1,12 @@
+<div class="shop-item" *ngFor="let album of albums">
+    <span class="shop-item-title">{{album.title}}</span>
+    <img class="shop-item-image" src="{{album.image}}">
+    <div class="shop-item-details">
+        <span class="shop-item-price">${{album.price}}</span>
+        <button class="btn btn-primary shop-item-button" 
+                type="button" 
+                (click)="addToCart({item:album, quantity:1})">
+                ADD TO CART
+        </button>
+    </div>
+</div>

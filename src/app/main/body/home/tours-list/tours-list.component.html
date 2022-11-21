@@ -1,0 +1,10 @@
+<div *ngFor="let tour of tours" (mouseenter)="hoverOn()" (mouseleave)="hoverOff()">
+    <div [ngStyle]="{'background-color' : tour.date == 'SOLD!' ? 'lightgray' : 'transparent' }">
+        <span class="tour-item tour-date">{{tour.date}}</span>
+        <span class="tour-item tour-city">{{tour.location}}</span>
+        <span class="tour-item tour-arena">{{tour.arena}}</span>
+        <button type="button" class="tour-item tour-btn btn btn-primary" (click)="onBuyTicket(tour)">BUY TICKETS</button>
+        <span [ngClass]="isHovering ? 'active' : 'timeLeft'">time left: {{countDown(tour.date)}}</span>
+        <hr>
+    </div>
+</div>
