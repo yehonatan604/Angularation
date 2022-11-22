@@ -19,7 +19,7 @@ export class AlbumsListComponent implements OnInit {
   }
   
   fetchAlbums(){
-    this.albums = this.storeService.getAlbums();
+    this.storeService.fetchItems().subscribe(items => this.albums = items.filter(item => item.description === "Album"));
   }
 
   addToCart(item:Cart){

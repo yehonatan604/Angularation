@@ -34,16 +34,10 @@ export class ToursListComponent implements OnInit {
   }
 
   countDown(date: string): string {
-    let countDownDate = new Date(date).valueOf();
-
-    let now = new Date().valueOf();
+    let countDownDate = new Date(date).getTime();
+    let now = new Date().getTime();
     let difference = countDownDate - now;
-
-    let hours = Math.floor(difference  / 1000 / 60 / 60);
-    let minutes = Math.round(difference / 6000);
-
-    difference = Math.floor((countDownDate - now) / 86400000);
-    return ` ${hours} Hours, & ${minutes} Minutes`;
+    let days = Math.floor(difference  / 1000 / 60 / 60 / 24);
+    return `${days} Days`;
   }
-
 }

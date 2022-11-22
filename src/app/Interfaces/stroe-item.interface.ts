@@ -1,5 +1,6 @@
 export interface StoreItem {
     title: string,
     image: string,
-    price: number
+    price: number,
+    description: string;
 }

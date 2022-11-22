@@ -15,9 +15,12 @@ export class MerchListComponent implements OnInit {
   constructor(private storeService: StoreService, private shoppingCartService: ShoppingListService) { }
 
   ngOnInit(): void {
-    this.merchandise = this.storeService.getMerchandise();
+    this.fetchMerchandise();
   }
 
+  fetchMerchandise() {
+    this.storeService.fetchItems().subscribe(items => this.merchandise = items.filter(item => item.description === "Merch"));
+  }
   addToCart(item: Cart) {
     this.shoppingCartService.addToCart(item);
   }

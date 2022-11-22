@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AboutComponent } from '../main/body/about/about.component';
 import { HomeComponent } from '../main/body/home/home.component';
@@ -11,7 +12,7 @@ import { ShoppingListComponent } from '../main/body/store/shopping-list/shopping
 import { StoreComponent } from '../main/body/store/store.component';
 
 @NgModule({
-  imports: [CommonModule, BrowserModule],
+  imports: [CommonModule, BrowserModule, HttpClientModule],
   declarations:[
     HomeComponent, 
     StoreComponent, 
@@ -19,7 +20,7 @@ import { StoreComponent } from '../main/body/store/store.component';
     ToursListComponent,
     AlbumsListComponent,
     MerchListComponent,
-    ShoppingListComponent
+    ShoppingListComponent,
 ]
 })
 export class MainAppModule  {

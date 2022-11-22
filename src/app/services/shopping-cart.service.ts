@@ -1,18 +1,15 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Cart } from "../Interfaces/cart.interface";
-import { StoreService } from "./store.service";
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
     itemAdded = new Subject();
 
-    private shoppingCart: Cart[] = [
-        { item: this.storeService.getMerchandise()[0], quantity: 1 },
-        { item: this.storeService.getAlbums()[2], quantity: 2 }
-    ]
+    private shoppingCart: Cart[] = []
 
-    constructor(private storeService: StoreService) { }
+    constructor(private http: HttpClient) { }
 
     getShoppingCart(): Cart[] {
         return [...this.shoppingCart]
@@ -42,6 +39,8 @@ export class ShoppingListService {
     }
 
     purchase() {
+        this.http.put<Cart[]>('https://band-project-864cf-default-rtdb.firebaseio.com/cart.json', this.shoppingCart)
+        .subscribe();
         this.shoppingCart = [];
     }
 }

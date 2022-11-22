@@ -11,8 +11,7 @@
         </div>
         <span class="cart-price cart-column">${{cart.item.price}}</span>
         <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="{{cart.quantity}}"
-                (lostpointercapture)="onChangeQuantityInCart(cart, +cart.quantity)">
+            <input class="cart-quantity-input" type="number" value="{{cart.quantity}}">
             <button class="btn btn-danger" type="button" (click)="onRemoveFromCart(cart)">
                 REMOVE
             </button>
