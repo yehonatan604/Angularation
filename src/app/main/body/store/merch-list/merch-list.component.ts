@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart } from 'src/app/Interfaces/cart.interface';
 import { StoreItem } from 'src/app/Interfaces/stroe-item.interface';
-import { ShoppingListService } from 'src/app/services/shopping-cart.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -12,7 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 export class MerchListComponent implements OnInit {
   merchandise : StoreItem[] = [];
 
-  constructor(private storeService: StoreService, private shoppingCartService: ShoppingListService) { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
     this.fetchMerchandise();
@@ -20,8 +18,5 @@ export class MerchListComponent implements OnInit {
 
   fetchMerchandise() {
     this.storeService.fetchItems().subscribe(items => this.merchandise = items.filter(item => item.description === "Merch"));
-  }
-  addToCart(item: Cart) {
-    this.shoppingCartService.addToCart(item);
   }
 }

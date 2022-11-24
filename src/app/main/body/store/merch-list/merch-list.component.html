@@ -1,11 +1,3 @@
 <div class="shop-item" *ngFor="let merch of merchandise">
-    <span class="shop-item-title">{{merch.title}}</span>
-    <img class="shop-item-image" src="{{merch.image}}">
-    <div class="shop-item-details">
-        <span class="shop-item-price">${{merch.price}}</span>
-        <button class="btn btn-primary shop-item-button" type="button"
-            (click)="addToCart({item:merch, quantity:1})">
-            ADD TO CART
-        </button>
-    </div>
+    <app-merch-list-item [merchandise]="merchandise" [merch]="merch"></app-merch-list-item>
 </div>

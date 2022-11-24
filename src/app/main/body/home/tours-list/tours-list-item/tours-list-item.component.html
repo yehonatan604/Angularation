@@ -1,0 +1,8 @@
+<div (mouseenter)="hoverOn()" (mouseleave)="hoverOff()" [ngStyle]="{'background-color' : currentTour.date == 'SOLD!' ? 'lightgray' : 'transparent' }">
+    <span class="tour-item tour-date">{{currentTour.date}}</span>
+    <span class="tour-item tour-city">{{currentTour.location}}</span>
+    <span class="tour-item tour-arena">{{currentTour.arena}}</span>
+    <button type="button" class="tour-item tour-btn btn btn-primary" (click)="onBuyTicket(currentTour)">BUY TICKETS</button>
+    <span [ngClass]="isHovering ? 'balloon' : 'timeLeft'">time left: {{countDown(currentTour.date)}}</span>
+    <hr>
+</div>

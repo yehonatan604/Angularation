@@ -1,0 +1,10 @@
+<span class="shop-item-title">{{album.title}}</span>
+    <img class="shop-item-image" src="{{album.image}}">
+    <div class="shop-item-details">
+        <span class="shop-item-price">${{album.price}}</span>
+        <button class="btn btn-primary shop-item-button" 
+                type="button" 
+                (click)="addToList({item:album, quantity:1})">
+                PURCHASE
+        </button>
+    </div>
