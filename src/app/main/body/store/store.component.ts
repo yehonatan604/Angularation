@@ -11,12 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class StoreComponent implements OnInit {
   cartItems!: Cart[];
-  shoppingListType!: string;
+  shoppingListType = `${ShoppingListTypes.Store}`;
 
   constructor(private shoppingListService: ShoppingListService) {
-    this.shoppingListType = `${ShoppingListTypes.Store}`;
   }
-
+  
   ngOnInit(): void {
     this.shoppingListService.itemChanged.subscribe(() => {
       this.cartItems = this.shoppingListService.getShoppingCart()

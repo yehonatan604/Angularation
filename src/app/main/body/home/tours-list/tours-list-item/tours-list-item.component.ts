@@ -13,7 +13,7 @@ export class ToursListItemComponent {
 
   isHovering: boolean = false;
   @Input() tours: Tour[] = [];
-  @Input() currentTour: Tour = { date: '', arena: '', location: '', sold: false };
+  @Input() currentTour: Tour = { date: '', arena: '', location: '', price: 0, tickets: 500, sold: false };
 
   hoverOn() {
     this.isHovering = true;
@@ -35,8 +35,14 @@ export class ToursListItemComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(`Confirmed!`, `You've purchased a ticket:\ndate: ${tour.date}\nlocation: ${tour.location}\narena: ${tour.arena}`, `success`);
-        this.tours[this.tours.indexOf(tour)].date = 'SOLD OUT!!!';
-        this.tours[this.tours.indexOf(tour)].sold = true;
+
+        if (this.tours[this.tours.indexOf(tour)].tickets === 0) {
+          this.tours[this.tours.indexOf(tour)].arena += ' SOLD OUT!!!';
+          this.tours[this.tours.indexOf(tour)].sold = true;
+        }
+        else {
+          this.tours[this.tours.indexOf(tour)].tickets--;
+        }
         this.toursService.updateTours(this.tours);
       }
       else {

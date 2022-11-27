@@ -8,20 +8,16 @@ import { Subject } from "rxjs";
 export class StoreService {
     itemList: StoreItem[] = [];
     private url: string = 'https://band-project-864cf-default-rtdb.firebaseio.com/items.json';
-    
+
     constructor(private http: HttpClient) { }
 
-    getAlbums(): StoreItem[] {
-        return [...this.itemList.filter(item => item.description === `${CategoryTypes.Album}`)];
+    postItem(item: StoreItem) {
+        this.fetchItems().subscribe(items => {
+            this.itemList = items;
+            this.itemList.push(item);
+            this.http.put(this.url, this.itemList).subscribe();
+        })
     }
-
-    getMerchandise(): StoreItem[] {
-        return [...this.itemList.filter(item => item.description === `${CategoryTypes.Merch}`)];
-    }
-
-    // postItems() {
-    //     this.http.put(this.url, this.itemList).subscribe();
-    // }
 
     fetchItems() {
         return this.http.get<StoreItem[]>(this.url);

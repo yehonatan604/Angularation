@@ -12,7 +12,7 @@ export class ShoppingListService {
     }
 
     getShoppingCart(): Cart[] {
-        return [...this.shoppingList]
+        return this.shoppingList;
     }
 
     addToList(item: Cart) {
@@ -33,6 +33,8 @@ export class ShoppingListService {
     changeQuantity(quantity: number, item: Cart) {
         let index = this.shoppingList.findIndex(e => e.item.title === item.item.title);
         this.shoppingList[index].quantity = quantity;
+        let arr = [...this.shoppingList];
+        this.shoppingList = arr;
         this.itemChanged.next(item);
     }
 

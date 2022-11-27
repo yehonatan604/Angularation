@@ -13,8 +13,11 @@ import Swal from 'sweetalert2';
 export class ShoppingListItemComponent {
   @Input() cartItems: Cart[] = [];
   @Input() cart!: Cart;
-  @Input() sender!: string;
-  constructor(private shoppingListService: ShoppingListService, private cartService: CartService) { }
+  @Input() sender: string;
+  
+  constructor(private shoppingListService: ShoppingListService, private cartService: CartService) {
+    this.sender = `${ShoppingListTypes.Store}`;
+   }
 
   onRemoveFromCart(item: Cart) {
     Swal.fire({
@@ -28,7 +31,7 @@ export class ShoppingListItemComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(`Confirmed!`, `You've Removed item${item.quantity > 1 ? 's' : ''}: ${item.quantity}${item.quantity > 1 ? ' units of' : ''} ${item.item.title}`, `success`);
-        this.sender == 'STORE' ?
+        this.sender == `${ShoppingListTypes.Store}` ?
           this.shoppingListService.removeFromList(item) :
           this.cartService.removeFromCart(item);
       }
@@ -39,7 +42,7 @@ export class ShoppingListItemComponent {
   }
 
   onQuantityChange(quantity: number) {
-    this.sender == `${ShoppingListTypes.Store}` ?
+    this.sender === `${ShoppingListTypes.Store}` ?
       quantity > 0 ? this.shoppingListService.changeQuantity(quantity, this.cart) : this.cart.quantity = 1 :
       quantity > 0 ? this.cartService.changeQuantity(quantity, this.cart) : this.cart.quantity = 1;
   }

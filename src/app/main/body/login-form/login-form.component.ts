@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginTypes } from 'src/app/enums/login-types.enum';
 import { User } from 'src/app/Interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
@@ -12,10 +13,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent {
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService, private router: Router) { }
   @ViewChild('loginForm') loginForm!: NgForm;
   radioValue!: string;
   formUser!: User;
+  register = `${LoginTypes.Register}`;
+  today: string = new Date().toISOString().split("T")[0];
 
   onSubmit() {
     this.assignUser();
@@ -38,7 +41,14 @@ export class LoginFormComponent {
       let index: number = users.findIndex(e => e.email === this.formUser.email);
       if (users[index].password == this.formUser.password) {
         this.usersService.addLoginUser(this.formUser);
+
         Swal.fire('Success!', `${this.formUser.userName} logged in successfully.`, `success`)
+
+        this.usersService.fetchItems().subscribe(users => {
+          users[index].authLevel === 2 ?
+            this.router.navigate(['/admin']) :
+            this.router.navigate(['/cart']);
+        });
       }
       else {
         Swal.fire('Login Failed!', `You've entered wrong password!!!`, 'error');
@@ -51,6 +61,7 @@ export class LoginFormComponent {
     this.formUser.id = this.usersService.getLastId() == 0 ? 1 : + 1;
     this.usersService.addUser(this.formUser).subscribe(() => {
       Swal.fire(`${this.formUser.userName} Registered Successfully!`, `you can login now.`, 'success');
+      this.router.navigate(['/login']);
     });
   }
 

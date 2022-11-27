@@ -30,7 +30,6 @@ export class UsersService {
         this.fetchItems().subscribe(users => {
             let index: number = users.findIndex(e => e.email === user.email);
             this.loggedInUser = users[index];
-            this.loggedInUser.authLevel = this.loggedInUser.email === 'admin@email.com' ? 2 : 1 
         });
     }
 

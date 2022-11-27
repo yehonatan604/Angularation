@@ -8,9 +8,18 @@ export class ToursService {
     constructor(private http: HttpClient) { }
     toursChanged = new Subject();
     private url: string = 'https://band-project-864cf-default-rtdb.firebaseio.com/tours.json';
+    tours!: Tour[];
 
     fetchItems() {
         return this.http.get<Tour[]>(this.url);
+    }
+
+    postTour(tour: Tour) {
+        this.fetchItems().subscribe(items => {
+            this.tours = items;
+            this.tours.push(tour);
+            this.updateTours(this.tours);
+        })
     }
 
     updateTours(tours: Tour[]) {

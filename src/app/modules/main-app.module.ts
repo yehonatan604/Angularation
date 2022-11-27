@@ -17,6 +17,10 @@ import { ShortFloatPipe } from '../pipes/short-float.pipe';
 import { GetTotalPipe } from '../pipes/get-total.pipe';
 import { LoginFormComponent } from '../main/body/login-form/login-form.component';
 
+import { AdminComponent } from '../main/body/admin/admin.component';
+import { AddStoreItemComponent } from '../main/body/admin/add-store-item/add-store-item.component';
+import { AddTourComponent } from '../main/body/admin/add-tour/add-tour.component';
+
 import { ShoppingListComponent } from '../main/body/shared-components/shopping-list/shopping-list.component';
 import { ShoppingListItemComponent } from '..//main/body/shared-components/shopping-list/shopping-list-item/shopping-list-item.component';
 import { ListTotalCalculatorComponent } from '../main/body/shared-components/list-total-calculator/list-total-calculator.component';
@@ -38,6 +42,10 @@ import { ListTotalCalculatorComponent } from '../main/body/shared-components/lis
     ShoppingListComponent,
     ShoppingListItemComponent,
     ListTotalCalculatorComponent,
+
+    AdminComponent,
+    AddTourComponent,
+    AddStoreItemComponent,
 
     ShortFloatPipe,
     GetTotalPipe,

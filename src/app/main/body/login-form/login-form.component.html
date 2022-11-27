@@ -3,35 +3,39 @@
     <div class="col-xs-12 col-md-12 col-md-offset-8">
         <div class="radio-container">
             <label for="login" id="login-label">LOGIN</label>
-            <input type="radio" id="login" name="loginToggle" (click)="onToggleLogin()">
+            <input type="radio" id="login" name="loginToggle" checked="checked" (click)="onToggleLogin()">
             <label for="login" id="register-label">REGISTER</label>
             <input type="radio" id="register" name="loginToggle" (click)="onToggleRegister()">
         </div>
         <form #loginForm="ngForm" class="form-group" (ngSubmit)="onSubmit()">
             <div ngModelGroup="formGroup" class="form-container">
-                <div *ngIf="radioValue === 'Register'">
+                <div *ngIf="radioValue === register">
                     <div>
                         <label for="userName">User Name</label>
-                        <input type="text" id="userName" class="form-control" ngModel name="userName">
+                        <input type="text" id="userName" class="form-control" ngModel #userName="ngModel" name="userName" required pattern="(?=.*[a-z]).{3,} (?=.*[a-z]).{3,}">
+                        <span class="help-block" *ngIf="!userName.valid && userName.touched">Please enter a user name!</span>
                         <hr>
                     </div>
                     <div>
                         <label for="dob">Date of Birth</label>
-                        <input type="date" id="dob" class="form-control" ngModel name="dob">
+                        <input type="date" id="dob" class="form-control" ngModel #dob="ngModel" name="dob" min="1930-01-01" max="{{today}}" required date>
+                        <span class="help-block" *ngIf="!dob.valid && dob.touched">Please enter a valid date!</span>
                         <hr>
                     </div>
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" ngModel name="email">
+                    <input type="email" id="email" class="form-control" ngModel #email="ngModel" name="email" required email>
+                    <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
                     <hr>
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" ngModel name="password">
+                    <input type="password" id="password" class="form-control" ngModel #password="ngModel" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    <span class="help-block" *ngIf="!password.valid && password.touched">Please enter password!</span>
                     <hr>
                 </div>
-                <button type="Submit" class="btn btn-primary btn-purchase">Go</button>
+                <button type="Submit" class="btn btn-primary btn-purchase" [disabled]="!loginForm.valid">Go</button>
             </div>
         </form>
     </div>

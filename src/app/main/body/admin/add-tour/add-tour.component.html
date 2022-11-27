@@ -1,0 +1,44 @@
+<form #addTourForm="ngForm" class="form-group" (ngSubmit)="onSubmit()">
+    <h1>Add Tour</h1>
+    <div ngModelGroup="formGroup" class="form-container">
+        <div>
+            <hr>
+            <label for="tourDate">Tour Date</label>
+            <input type="date" 
+                   id="tourDate" 
+                   class="form-control" 
+                   ngModel 
+                   #tourDate="ngModel" 
+                   name="tourDate" 
+                   min= {{today}}
+                   required date>
+            <span class="help-block" *ngIf="!tourDate.valid && tourDate.touched">Please enter a valid tour date!</span>
+            <hr>
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" class="form-control" ngModel #location="ngModel" name="location" required pattern="(?=.*[a-z]).{3,}">
+            <span class="help-block" *ngIf="!location.valid && location.touched">Please enter a location!</span>
+            <hr>
+        </div>
+        <div>
+            <label for="arena">Arena</label>
+            <input type="text" id="arena" class="form-control" ngModel #arena="ngModel" name="arena" required pattern="(?=.*[a-z]).{3,}">
+            <span class="help-block" *ngIf="!arena.valid && arena.touched">Please enter an arena!</span>
+            <hr>
+        </div>
+        <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" class="form-control" ngModel #price="ngModel" min="1" name="price">
+            <span class="help-block" *ngIf="!price.valid && price.touched">Please enter price!</span>
+            <hr>
+        </div>
+        <div>
+            <label for="tickets">Tickets</label>
+            <input type="number" id="tickets" class="form-control" ngModel #tickets="ngModel" min="1" name="tickets">
+            <span class="help-block" *ngIf="!tickets.valid && tickets.touched">Please enter tickets sum!</span>
+            <hr>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!addTourForm.valid">Add Tour</button>
+    </div>
+</form>

@@ -1,5 +1,9 @@
-div > input {
+div>input {
     width: 180px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid indianred;
 }
 
 .container {
