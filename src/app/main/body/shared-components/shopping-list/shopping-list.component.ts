@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Cart } from 'src/app/Interfaces/cart.interface';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
 
@@ -8,21 +8,13 @@ import { ShoppingListService } from 'src/app/services/shopping-list.service';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-
-  cartItems: Cart[] = [];
   constructor(private shoppingListService: ShoppingListService) {}
+  @Input() currentCart!: Cart[];
+  @Input() sender!: string;
 
   ngOnInit(): void {
-    this.fetchItems();
-    this.shoppingListService.itemAdded.subscribe(()=> this.fetchItems());
-  }
-  
-  onPurchase() {
-    this.shoppingListService.addToCart();
-    this.fetchItems();
-  }
-  
-  fetchItems() {
-    this.cartItems = this.shoppingListService.getShoppingCart();
+    this.shoppingListService.itemChanged.subscribe(()=> {
+      this.currentCart = this.shoppingListService.getShoppingCart()
+    });
   }
 }

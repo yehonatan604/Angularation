@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { map, Subject } from "rxjs";
 import { Cart } from "../Interfaces/cart.interface";
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-    itemAdded = new Subject();
+    itemChanged = new Subject();
     private cartURL = 'https://band-project-864cf-default-rtdb.firebaseio.com/cart.json';
+    private salesURL = 'https://band-project-864cf-default-rtdb.firebaseio.com/sales.json';
     private shoppingCart!: Cart[];
 
     constructor(private http: HttpClient) {
@@ -14,12 +15,22 @@ export class CartService {
     }
 
     fetchCart() {
-        return this.http.get<Cart[]>(this.cartURL);
+        return this.http.get<Cart[]>(this.cartURL)
+            .pipe(map(response => {
+                const tempArr: Cart[] = [];
+                for (let key in response) {
+                    if (response.hasOwnProperty(key)) {
+                        tempArr.push({...response[key]});
+                    }
+                }
+                return tempArr;
+            }));
     }
 
     updateCart() {
-        this.http.put<Cart[]>(this.cartURL, this.shoppingCart)
-            .subscribe(items => this.itemAdded.next(items));
+        this.http.put<Cart[]>(this.cartURL, this.shoppingCart).subscribe(() => {
+            this.itemChanged.next(this.shoppingCart)
+        });
     }
 
     getShoppingCart(): Cart[] {
@@ -27,18 +38,27 @@ export class CartService {
     }
 
     addToCart(items: Cart[]) {
-        this.shoppingCart = items;
+        this.shoppingCart.push(...items);
         this.updateCart();
     }
 
     removeFromCart(cart: Cart) {
-        this.shoppingCart = this.shoppingCart.filter(item => item != cart);
-        this.ClearCart(cart);
+        this.shoppingCart = this.shoppingCart.filter(items => items.item.title !== cart.item.title);
         this.updateCart();
+        this.itemChanged.next(cart);
     }
-    ClearCart(cart: Cart) {
+
+    changeQuantity(quantity: number, item: Cart) {
+        let index = this.shoppingCart.findIndex(e => e.item.title === item.item.title);
+        this.shoppingCart[index].quantity = quantity;
+        this.updateCart();
+        this.itemChanged.next(item);
+    }
+
+    clearCart() {
         this.shoppingCart = [];
         this.updateCart();
+        this.itemChanged.next(this.shoppingCart);
     }
 
     getCartTotal(): number {
@@ -50,6 +70,8 @@ export class CartService {
     }
 
     purchase() {
-        this.http.put<Cart[]>(this.cartURL, this.shoppingCart).subscribe();
+        this.http.post<Cart[]>(this.salesURL, this.shoppingCart)
+            .subscribe(() => this.http.delete<Cart[]>(this.cartURL)
+                .subscribe(() => this.clearCart()));
     }
 }

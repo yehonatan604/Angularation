@@ -1,14 +1,19 @@
 <section class="container content-section">
-    <h2 class="section-header">CART</h2>
-
-    <div class="cart-row">
-        <span class="cart-item cart-header cart-column">ITEM</span>
-        <span class="cart-price cart-header cart-column">PRICE</span>
-        <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+    <div *ngIf="currentUser != null || undefined; else loggedOut">
+        <h2 class="section-header">CART</h2>
+        <app-shopping-list [currentCart]="shoppingCart" [sender]="'CART'">
+        </app-shopping-list>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary btn-purchase" type="button" (click)="onPurchase()">PURCHASE</button>
+                <button class="btn btn-success btn-clear" type="button" (click)="onClearCart()">CLEAR</button>
+            </div>
+        </div>
     </div>
-    <div class="cart-items" *ngFor="let item of shoppingCart">
-        <app-cart-item [cartItems]="shoppingCart" [cart]="item"></app-cart-item>
-    </div>
-    <app-shopping-list-total></app-shopping-list-total>
-    <button class="btn btn-primary btn-purchase" type="button" (click)="onPurchase()">PURCHASE</button>
+    <ng-template #loggedOut class="container content-section">
+        <br><hr>
+        <h1>Please register or login in order to access the shopping cart.</h1>
+        <hr>
+        <button class="btn btn-primary btn-purchase" type="button" (click)="onLogin()">Login/Register</button>
+    </ng-template>
 </section>

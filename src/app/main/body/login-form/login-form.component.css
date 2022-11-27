@@ -1,0 +1,50 @@
+div > input {
+    width: 180px;
+}
+
+.container {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.radio-container {
+    display: flex;
+    padding-bottom: 4%;
+    margin-top: 3%;
+}
+
+#login-label {
+    margin-left: -5%;
+    margin-right: -5%;
+    margin-top: 1%;
+}
+
+#register-label {
+    margin-right: -5%;
+    margin-top: 1%;
+}
+
+.btn-purchase {
+    margin-bottom: 3%;
+    margin-top: 0%;
+    padding: 5px;
+    width: 180px
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    border: 1px solid gray;
+    width: 30%;
+    padding: 3%;
+    margin-top: 1%;
+}
+
+.section-header {
+    margin-right: 1.5%;
+}

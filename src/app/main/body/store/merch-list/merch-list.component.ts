@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryTypes } from 'src/app/enums/category-types.enum';
 import { StoreItem } from 'src/app/Interfaces/stroe-item.interface';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -8,7 +9,7 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./merch-list.component.css']
 })
 export class MerchListComponent implements OnInit {
-  merchandise : StoreItem[] = [];
+  merchandise: StoreItem[] = [];
 
   constructor(private storeService: StoreService) { }
 
@@ -17,6 +18,7 @@ export class MerchListComponent implements OnInit {
   }
 
   fetchMerchandise() {
-    this.storeService.fetchItems().subscribe(items => this.merchandise = items.filter(item => item.description === "Merch"));
+    this.storeService.fetchItems()
+      .subscribe(items => this.merchandise = items.filter(item => item.description === "Merch"));
   }
 }

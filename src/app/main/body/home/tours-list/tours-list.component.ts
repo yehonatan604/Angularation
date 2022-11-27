@@ -13,6 +13,7 @@ export class ToursListComponent implements OnInit {
   constructor(private toursService: ToursService) { }
 
   ngOnInit(): void {
-    this.tours = this.toursService.tours;
+    this.toursService.fetchItems()
+    .subscribe(items => this.tours = items);
   }
 }

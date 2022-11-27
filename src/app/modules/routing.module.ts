@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AboutComponent } from '../main/body/about/about.component';
 import { CartComponent } from '../main/body/cart/cart.component';
 import { HomeComponent } from '../main/body/home/home.component';
+import { LoginFormComponent } from '../main/body/login-form/login-form.component';
 import { StoreComponent } from '../main/body/store/store.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ export class RoutingModule  {
   { path: 'about', component: AboutComponent},
   { path: 'store', component: StoreComponent},
   { path: 'cart', component: CartComponent},
+  { path: 'login', component: LoginFormComponent},
   { path: '**', redirectTo: 'home' },
   ]);
 }

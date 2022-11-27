@@ -5,32 +5,35 @@ import { CartService } from "./cart.service";
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingListService {
-    itemAdded = new Subject();
-    itemRemoved = new Subject();
+    itemChanged = new Subject();
     private shoppingList: Cart[] = []
 
-    constructor(private cartService: CartService) { }
+    constructor(private cartService: CartService) { 
+    }
 
     getShoppingCart(): Cart[] {
         return [...this.shoppingList]
     }
 
     addToList(item: Cart) {
+        let index = this.shoppingList.findIndex(e => e.item.title === item.item.title);
+        
+        this.shoppingList.filter( e => e.item.title === item.item.title).length !> 0 ? 
+        this.shoppingList[index].quantity += item.quantity:
         this.shoppingList.push(item);
-        this.itemAdded.next(item);
+        
+        this.itemChanged.next(item);
     }
 
-    removeFromCart(item: Cart) {
+    removeFromList(item: Cart) {
         this.shoppingList = this.shoppingList.filter(x => x != item);
-        this.itemAdded.next(item);
+        this.itemChanged.next(item);
     }
     
-    getCartTotal(): number {
-        let total: number = 0;
-        for (let item of this.shoppingList) {
-            total += item.item.price;
-        }
-        return total;
+    changeQuantity(quantity: number, item: Cart) {
+        let index = this.shoppingList.findIndex(e => e.item.title === item.item.title);
+        this.shoppingList[index].quantity = quantity;
+        this.itemChanged.next(item);
     }
 
     addToCart() {

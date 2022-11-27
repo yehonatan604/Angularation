@@ -3,7 +3,7 @@
 <div class="shop-item-details">
     <span class="shop-item-price">${{merch.price}}</span>
     <button class="btn btn-primary shop-item-button" 
-        type="button" (click)="addToList({item:merch, quantity:1})">
+        type="button" (click)="addToList({item:merch, quantity:1, userId: currentUserId})">
         PURCHASE
     </button>
 </div>

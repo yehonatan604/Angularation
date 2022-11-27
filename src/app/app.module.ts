@@ -18,7 +18,9 @@ import { MainAppModule } from './modules/main-app.module';
     FooterComponent,
   ],
   imports: [
-    BrowserModule, MainAppModule, RoutingModule.routeIT
+    BrowserModule, 
+    MainAppModule, 
+    RoutingModule.routeIT,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,7 +5,11 @@
     </div>
     <span class="cart-price cart-column">${{cart.item.price}}</span>
     <div class="cart-quantity cart-column">
-        <input class="cart-quantity-input" type="number" value="{{cart.quantity}}">
+        <input class="cart-quantity-input" 
+               type="number" 
+               [(ngModel)]="cart.quantity" 
+               #quantity
+               (change)="onQuantityChange(+quantity.value)">
         <button class="btn btn-danger" type="button" (click)="onRemoveFromCart(cart)">
             REMOVE
         </button>

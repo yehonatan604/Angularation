@@ -1,0 +1,15 @@
+.col-xs-12 {
+    display: flex;
+}
+
+.col-xs-12 > .btn-success {
+    margin-right:20%;
+}
+
+.col-xs-12 > .btn-primary {
+    margin-left:20%;
+}
+
+h1 {
+    text-align: center;
+}
