@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs";
 import { User } from "../Interfaces/user.interface";
-import Swal from "sweetalert2";
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -27,7 +26,7 @@ export class UsersService {
         return this.http.post<User[]>(this.url, user);
     }
 
-    AddLoginUser(user: User) {
+    addLoginUser(user: User) {
         this.fetchItems().subscribe(users => {
             let index: number = users.findIndex(e => e.email === user.email);
             this.loggedInUser = users[index];

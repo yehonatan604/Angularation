@@ -8,6 +8,6 @@
 </section>
 <section class="container content-section">
     <h2 class="section-header">SHOPPING LIST</h2>
-    <app-shopping-list [currentCart]="cartItems" [sender]="'STORE'"></app-shopping-list>
+    <app-shopping-list [currentCart]="cartItems" [sender]="shoppingListType"></app-shopping-list>
     <button class="btn btn-primary btn-purchase" type="button" (click)="onAddToCart()">ADD TO CART</button>
 </section>

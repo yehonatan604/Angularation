@@ -11,7 +11,7 @@ export class CartService {
     private shoppingCart!: Cart[];
 
     constructor(private http: HttpClient) {
-        this.fetchCart().subscribe(items => this.shoppingCart = items);
+        this.fetchCart().subscribe();
     }
 
     fetchCart() {
@@ -23,6 +23,7 @@ export class CartService {
                         tempArr.push({...response[key]});
                     }
                 }
+                this.shoppingCart = tempArr;
                 return tempArr;
             }));
     }
@@ -61,17 +62,8 @@ export class CartService {
         this.itemChanged.next(this.shoppingCart);
     }
 
-    getCartTotal(): number {
-        let total: number = 0;
-        for (let item of this.shoppingCart) {
-            total += item.item.price;
-        }
-        return total;
-    }
-
     purchase() {
         this.http.post<Cart[]>(this.salesURL, this.shoppingCart)
-            .subscribe(() => this.http.delete<Cart[]>(this.cartURL)
-                .subscribe(() => this.clearCart()));
+            .subscribe(() => this.clearCart());
     }
 }

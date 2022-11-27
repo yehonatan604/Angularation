@@ -37,7 +37,7 @@ export class LoginFormComponent {
     this.usersService.fetchItems().subscribe(users => {
       let index: number = users.findIndex(e => e.email === this.formUser.email);
       if (users[index].password == this.formUser.password) {
-        this.usersService.AddLoginUser(this.formUser);
+        this.usersService.addLoginUser(this.formUser);
         Swal.fire('Success!', `${this.formUser.userName} logged in successfully.`, `success`)
       }
       else {

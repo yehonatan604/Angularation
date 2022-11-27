@@ -15,10 +15,10 @@ import { StoreComponent } from '../main/body/store/store.component';
 export class RoutingModule  {
   public static routeIT = RouterModule.forRoot([
   { path: 'home', component: HomeComponent},
-  { path: 'about', component: AboutComponent},
   { path: 'store', component: StoreComponent},
   { path: 'cart', component: CartComponent},
   { path: 'login', component: LoginFormComponent},
+  { path: 'about', component: AboutComponent},
   { path: '**', redirectTo: 'home' },
   ]);
 }

@@ -1,9 +1,12 @@
+import { Injectable } from "@angular/core";
 import Swal from "sweetalert2";
 
-export class MsgBox {
-    public static show(action: string, boxTitle: string, titleTxt: string, confirmTxt: string, cancelTxt: string): boolean {
-        let value!: boolean;
-        let x = Swal.fire({
+@Injectable({providedIn: 'root'})
+export class MsgBoxService {
+    value!: boolean;
+
+    show(action: string, boxTitle: string, titleTxt: string, confirmTxt: string, cancelTxt: string): boolean {
+        Swal.fire({
             title: boxTitle,
             text: titleTxt,
             icon: 'info',
@@ -14,13 +17,13 @@ export class MsgBox {
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(`Confirmed!`, confirmTxt, `success`);
-                value = true;
+                this.value = true;
             }
             else {
                 Swal.fire(`${action} Was Canceled`, cancelTxt, `error`);
-                value = false;
+                this.value = false;
             }
         });
-        return !value;
+        return !this.value;
     }
 }

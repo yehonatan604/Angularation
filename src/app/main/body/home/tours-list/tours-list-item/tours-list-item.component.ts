@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Tour } from 'src/app/Interfaces/tour.interface';
 import { ToursService } from 'src/app/services/tours.service';
-import { MsgBox } from 'src/app/utilities/msg-box.utility';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tours-list-item',
@@ -24,16 +24,25 @@ export class ToursListItemComponent {
   }
 
   onBuyTicket(tour: Tour) {
-    if (MsgBox.show(
-      'Purchase',
-      'Purchase Ticket',
-      'proceed to purchase ticket?',
-      `You've purchased a ticket:\ndate: ${tour.date}\nlocation: ${tour.location}\narena: ${tour.arena}`,
-      `You can still change your mind....`)) {
-      this.tours[this.tours.indexOf(tour)].date = 'SOLD OUT!!!';
-      this.tours[this.tours.indexOf(tour)].sold = true;
-      this.toursService.updateTours(this.tours);
-    }
+    Swal.fire({
+      title: 'Purchase Ticket',
+      text: 'proceed to purchase ticket?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#C64EB2',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(`Confirmed!`, `You've purchased a ticket:\ndate: ${tour.date}\nlocation: ${tour.location}\narena: ${tour.arena}`, `success`);
+        this.tours[this.tours.indexOf(tour)].date = 'SOLD OUT!!!';
+        this.tours[this.tours.indexOf(tour)].sold = true;
+        this.toursService.updateTours(this.tours);
+      }
+      else {
+        Swal.fire(`Purchase Ticket Was Canceled`, `You can still change your mind....`, `error`);
+      }
+    });
   }
 
   countDown(date: string): string {

@@ -1,11 +1,21 @@
 <header class="main-header">
     <nav class="nav main-nav">
         <ul>
-            <li><a routerLink="/home">HOME</a></li>
-            <li><a routerLink="/store">STORE</a></li>
-            <li><a routerLink="/about">ABOUT</a></li>
-            <li><a routerLink="/cart">CART</a></li>
-            <li><a routerLink="/login">LOGIN/REGISTER</a></li>
+            <li>
+                <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
+            </li>
+            <li>
+                <a routerLinkActive="active" routerLink="/store">STORE</a>
+            </li>
+            <li>
+                <a routerLinkActive="active" routerLink="/cart">CART</a>
+            </li>
+            <li>
+                <a routerLinkActive="active" routerLink="/login">LOGIN/REGISTER</a>
+            </li>
+            <li>
+                <a routerLinkActive="active" routerLink="/about">ABOUT</a>
+            </li>
         </ul>
     </nav>
     <h1 class="band-name band-name-large">The Generics</h1>

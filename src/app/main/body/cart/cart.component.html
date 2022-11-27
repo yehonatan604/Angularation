@@ -1,8 +1,7 @@
 <section class="container content-section">
     <div *ngIf="currentUser != null || undefined; else loggedOut">
         <h2 class="section-header">CART</h2>
-        <app-shopping-list [currentCart]="shoppingCart" [sender]="'CART'">
-        </app-shopping-list>
+        <app-shopping-list [currentCart]="shoppingCart" [sender]="shoppingListType"></app-shopping-list>
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-primary btn-purchase" type="button" (click)="onPurchase()">PURCHASE</button>

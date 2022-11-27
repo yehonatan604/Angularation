@@ -4,3 +4,11 @@
     align-items: center;
     background-color:red;
 }
+
+.active {
+    color:rgb(241, 237, 172);
+}
+
+li {
+    font-weight:bold;
+}

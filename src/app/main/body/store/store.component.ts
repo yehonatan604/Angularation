@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingListTypes } from 'src/app/enums/shopping-list-types.enum';
 import { Cart } from 'src/app/Interfaces/cart.interface';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
-import { MsgBox } from 'src/app/utilities/msg-box.utility';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-store',
@@ -9,8 +10,12 @@ import { MsgBox } from 'src/app/utilities/msg-box.utility';
   styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
-  constructor(private shoppingListService: ShoppingListService) { }
   cartItems!: Cart[];
+  shoppingListType!: string;
+
+  constructor(private shoppingListService: ShoppingListService) {
+    this.shoppingListType = `${ShoppingListTypes.Store}`;
+  }
 
   ngOnInit(): void {
     this.shoppingListService.itemChanged.subscribe(() => {
@@ -19,15 +24,24 @@ export class StoreComponent implements OnInit {
   }
 
   onAddToCart() {
-    if (MsgBox.show(
-      'Add To Cart',
-      'Add To Cart',
-      'Add items To Cart?\nthis will empty the shopping list & add the items to the shopping cart',
-      `You've Add items To shopping cart`,
-      `You can still change your mind....`)) {
-      this.shoppingListService.itemChanged.subscribe();
-      this.shoppingListService.addToCart()
-      this.cartItems = [];
-    }
+    Swal.fire({
+      title: 'Add Items To Cart',
+      text: 'This will empty the shopping list & add the items to the shopping cart, proceed?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#C64EB2',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(`Confirmed!`, `You've Added the items To the shopping cart.`, `success`);
+        this.shoppingListService.itemChanged.subscribe();
+        this.shoppingListService.addToCart()
+        this.cartItems = [];
+      }
+      else {
+        Swal.fire(`Add To Cart Was Canceled`, `You can still change your mind....`, `error`);
+      }
+    });
   }
 }
