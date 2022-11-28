@@ -12,26 +12,31 @@
                 <div *ngIf="radioValue === register">
                     <div>
                         <label for="userName">User Name</label>
-                        <input type="text" id="userName" class="form-control" ngModel #userName="ngModel" name="userName" required pattern="(?=.*[a-z]).{3,} (?=.*[a-z]).{3,}">
-                        <span class="help-block" *ngIf="!userName.valid && userName.touched">Please enter a user name!</span>
+                        <input type="text" id="userName" class="form-control" ngModel #userName="ngModel"
+                            name="userName" required pattern="(?=.*[a-z]).{3,} (?=.*[a-z]).{3,}">
+                        <span class="help-block" *ngIf="!userName.valid && userName.touched">Please enter a user
+                            name!</span>
                         <hr>
                     </div>
                     <div>
                         <label for="dob">Date of Birth</label>
-                        <input type="date" id="dob" class="form-control" ngModel #dob="ngModel" name="dob" min="1930-01-01" max="{{today}}" required date>
+                        <input type="date" id="dob" class="form-control" ngModel #dob="ngModel" name="dob"
+                            min="1930-01-01" max="{{today | stringifyDate}}" required date>
                         <span class="help-block" *ngIf="!dob.valid && dob.touched">Please enter a valid date!</span>
                         <hr>
                     </div>
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" ngModel #email="ngModel" name="email" required email>
+                    <input type="email" id="email" class="form-control" ngModel #email="ngModel" name="email" required
+                        email>
                     <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
                     <hr>
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" ngModel #password="ngModel" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    <input type="password" id="password" class="form-control" ngModel #password="ngModel"
+                        name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     <span class="help-block" *ngIf="!password.valid && password.touched">Please enter password!</span>
                     <hr>
                 </div>

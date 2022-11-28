@@ -353,3 +353,26 @@ html, body {
     font-size: 1.75em;
     width: 170px;
 }
+
+img, button, .form-container, .btn-primary {
+    border: 1px outset rgb(96, 91, 91);
+    box-shadow: 4px 5px #313030;
+}
+
+.help-block {
+    font-weight: bolder;
+    color: rgb(44, 9, 9);
+    animation: glow 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 1px transparent, 0 0 2px #dbd0d0, 0 0 3px #d6c7c7, 0 0 4px #d6c7c7,
+            0 0 5px transparent, 0 0 6px transparent, 0 0 7px transparent;
+    }
+
+    to {
+        text-shadow: 0 0 1px transparent, 0 0 2px #ff624d, 0 0 3px #ff624d, 0 0 4px #ff624d,
+            0 0 5px #ff624d, 0 0 6px #ff624d, 0 0 7px #ff624d;
+    }
+}

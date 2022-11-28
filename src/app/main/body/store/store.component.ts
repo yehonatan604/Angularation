@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListTypes } from 'src/app/enums/shopping-list-types.enum';
 import { Cart } from 'src/app/Interfaces/cart.interface';
+import { DialogBoxService } from 'src/app/services/dialog-box.service';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +14,7 @@ export class StoreComponent implements OnInit {
   cartItems!: Cart[];
   shoppingListType = `${ShoppingListTypes.Store}`;
 
-  constructor(private shoppingListService: ShoppingListService) {
+  constructor(private shoppingListService: ShoppingListService, private dialogBox: DialogBoxService) {
   }
   
   ngOnInit(): void {
@@ -23,15 +24,8 @@ export class StoreComponent implements OnInit {
   }
 
   onAddToCart() {
-    Swal.fire({
-      title: 'Add Items To Cart',
-      text: 'This will empty the shopping list & add the items to the shopping cart, proceed?',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#C64EB2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-    }).then((result) => {
+    this.dialogBox.show('Add To Cart', 'This will empty the shopping list & add the items to the shopping cart, proceed?')
+     .then((result) => {
       if (result.isConfirmed) {
         Swal.fire(`Confirmed!`, `You've Added the items To the shopping cart.`, `success`);
         this.shoppingListService.itemChanged.subscribe();

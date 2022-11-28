@@ -6,34 +6,39 @@
             <label for="itemTitle">Title</label>
             <input type="text" id="itemTitle" class="form-control" ngModel #itemTitle="ngModel" name="itemTitle"
                 required pattern="(?=.*[a-z]).{3,}">
-            <span class="help-block" *ngIf="!itemTitle.valid && itemTitle.touched">Please enter a title!</span>
+            <span class="help-block" *ngIf="!itemTitle.valid && itemTitle.touched">
+                Please enter a title!
+            </span>
             <hr>
         </div>
         <div>
             <label for="picture">Picture</label>
-            <input type="text" id="picture" class="form-control" ngModel #picture="ngModel" name="picture" required>
-            <span class="help-block" *ngIf="!picture.valid && picture.touched">Please enter a picture path!</span>
+            <input type="text" id="picture" class="form-control" ngModel #picture="ngModel" name="picture" 
+                required>
+            <span class="help-block" *ngIf="!picture.valid && picture.touched">
+                Please enter a picture path!
+            </span>
             <hr>
         </div>
         <div>
             <label for="description">Category</label>
-            <select type="text" 
-                    id="description" 
-                    class="form-control" 
-                    ngModel 
-                    #description="ngModel" 
-                    name="description" 
-                    required>
+            <select type="text" id="description" class="form-control" ngModel #description="ngModel" name="description"
+                required>
                 <option value="Merch">Merchandise</option>
                 <option value="Album">Album</option>
             </select>
-            <span class="help-block" *ngIf="!description.valid && description.touched">Please enter description!</span>
+            <span class="help-block" *ngIf="!description.valid && description.touched">
+                Please enter description!
+            </span>
             <hr>
         </div>
         <div>
             <label for="price">Price</label>
-            <input type="number" id="price" class="form-control" ngModel #price="ngModel" name="price" min="1" required number>
-            <span class="help-block" *ngIf="!price.valid && price.touched">Please enter valid price!</span>
+            <input type="number" id="price" class="form-control" ngModel #price="ngModel" name="price" min="1" 
+                required number>
+            <span class="help-block" *ngIf="!price.valid && price.touched">
+                Please enter valid price!
+            </span>
             <hr>
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="!addStoreItemForm.valid">Add Item</button>

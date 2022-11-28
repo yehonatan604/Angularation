@@ -1,9 +1,10 @@
 div>input {
     width: 180px;
+    border: 3px inset rgb(236, 230, 230);
 }
 
 input.ng-invalid.ng-touched {
-    border: 1px solid indianred;
+    border: 3px inset rgb(249, 224, 224);
 }
 
 .container {
@@ -43,12 +44,13 @@ input.ng-invalid.ng-touched {
     flex-direction: column;
     align-items: center;
     align-content: center;
-    border: 1px solid gray;
     width: 30%;
     padding: 3%;
     margin-top: 1%;
+    background-image: linear-gradient(45deg, rgb(229, 230, 230), transparent);
 }
 
 .section-header {
     margin-right: 1.5%;
 }
+

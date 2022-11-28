@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Tour } from 'src/app/Interfaces/tour.interface';
+import { DialogBoxService } from 'src/app/services/dialog-box.service';
 import { ToursService } from 'src/app/services/tours.service';
 import Swal from 'sweetalert2';
 
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tours-list-item.component.css']
 })
 export class ToursListItemComponent {
-  constructor(private toursService: ToursService) { }
+  constructor(private toursService: ToursService, private dialogBoxService: DialogBoxService) { }
 
   isHovering: boolean = false;
   @Input() tours: Tour[] = [];
@@ -24,31 +25,25 @@ export class ToursListItemComponent {
   }
 
   onBuyTicket(tour: Tour) {
-    Swal.fire({
-      title: 'Purchase Ticket',
-      text: 'proceed to purchase ticket?',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#C64EB2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(`Confirmed!`, `You've purchased a ticket:\ndate: ${tour.date}\nlocation: ${tour.location}\narena: ${tour.arena}`, `success`);
+    this.dialogBoxService.show('Purchase Ticket', 'proceed to purchase ticket?')
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(`Confirmed!`, `You've purchased a ticket:\ndate: ${tour.date}\nlocation: ${tour.location}\narena: ${tour.arena}`, `success`);
+          
+          if (this.tours[this.tours.indexOf(tour)].tickets === 0) {
+            this.tours[this.tours.indexOf(tour)].arena += ' SOLD OUT!!!';
+            this.tours[this.tours.indexOf(tour)].sold = true;
+          }
+          else {
+            this.tours[this.tours.indexOf(tour)].tickets--;
+          }
 
-        if (this.tours[this.tours.indexOf(tour)].tickets === 0) {
-          this.tours[this.tours.indexOf(tour)].arena += ' SOLD OUT!!!';
-          this.tours[this.tours.indexOf(tour)].sold = true;
+          this.toursService.updateTours(this.tours);
         }
         else {
-          this.tours[this.tours.indexOf(tour)].tickets--;
+          Swal.fire(`Purchase Ticket Was Canceled`, `You can still change your mind....`, `error`);
         }
-        this.toursService.updateTours(this.tours);
-      }
-      else {
-        Swal.fire(`Purchase Ticket Was Canceled`, `You can still change your mind....`, `error`);
-      }
-    });
+      });
   }
 
   countDown(date: string): string {

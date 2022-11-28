@@ -4,6 +4,7 @@ import { ShoppingListTypes } from 'src/app/enums/shopping-list-types.enum';
 import { Cart } from 'src/app/Interfaces/cart.interface';
 import { User } from 'src/app/Interfaces/user.interface';
 import { CartService } from 'src/app/services/cart.service';
+import { DialogBoxService } from 'src/app/services/dialog-box.service';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
@@ -17,7 +18,8 @@ export class CartComponent implements OnInit {
   currentUser!: User;
   shoppingListType!: string;
 
-  constructor(public cartService: CartService, private usersService: UsersService, private router: Router) {
+  constructor(public cartService: CartService, private usersService: UsersService,
+    private dialogBoxService: DialogBoxService, private router: Router) {
     this.shoppingListType = `${ShoppingListTypes.Store}`;
   }
 
@@ -41,40 +43,26 @@ export class CartComponent implements OnInit {
   }
 
   onPurchase() {
-    Swal.fire({
-      title: 'Purchase',
-      text: 'This will purchase & remove all items from the shopping cart, proceed?',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#C64EB2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(`Confirmed!`, `You've purchased the items!`, `success`);
-      }
-      else {
-        Swal.fire(`Purchase Items Was Canceled`, `You can still change your mind...`, `error`);
-      }
-    });
+    this.dialogBoxService.show('Purchase Items', 'This will purchase & remove all items from the shopping cart, proceed?')
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(`Confirmed!`, `You've purchased the items!`, `success`);
+        }
+        else {
+          Swal.fire(`Purchase Items Was Canceled`, `You can still change your mind....`, `error`);
+        }
+      });
   }
 
   onClearCart() {
-    Swal.fire({
-      title: 'Clear',
-      text: 'This will clear all items in the shopping cart, proceed?',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#C64EB2',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(`Confirmed!`, `You've cleared the shopping cart`, `success`);
-      }
-      else {
-        Swal.fire(`Clear Cart Was Canceled`, `No item was removed from shopping cart.`, `error`);
-      }
-    });
+    this.dialogBoxService.show('Clear Cart', 'This will clear all items in the shopping cart, proceed?')
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(`Confirmed!`, `You've cleared the shopping cart.`, `success`);
+        }
+        else {
+          Swal.fire(`Clear Cart Was Canceled`, `No items were removed from shopping cart.`, `error`);
+        }
+      });
   }
 }
