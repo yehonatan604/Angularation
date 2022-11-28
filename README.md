@@ -8,7 +8,7 @@ Admin has his own private section where he can edit the store invetory - normal 
 
 The software's main view is divided into 5 sections:
 
-#Home  
+# Home  
 
 This is the default page.
 users can buy tour tickets in that section.
