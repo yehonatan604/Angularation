@@ -1,27 +1,42 @@
-# Angularation
+# Rock Band E-commerce Website
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
+This project was generated with Angular version 14.2.5, using Firebase as backend.
 
-## Development server
+This is an E-commerce rock band website that sells tour tickets & merchandise. 
+A User that using the system for the first time will have to register with his personal details in order to make purchases.
+Admin has his own private section where he can edit the store invetory - normal users cant access this protected route.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The software's main view is divided into 5 sections:
 
-## Code scaffolding
+# Home  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This is the default page.
+users can buy tour tickets in that section.
+when hovering on a tour, a user can see how much time left for the concert, price & tickets left.
+a concert that is out of tickets wont be selectable, & will be marked as "Sold Out".
 
-## Build
+# Store  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+This is the store section.
+users can buy albums & merchandise in that section.
+after adding items to the list, the user can click "Add To Cart" to push the items to his personal shopping cart. 
 
-## Running unit tests
+# Cart 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This is the Shopping Cart section.
+users can potentially purchase their selected items - if they do - the cart will get emptied and saved in sales DB.
+this area is restricted, only logged-in users can access it.
 
-## Running end-to-end tests
+# Login/Register 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+This is the Login/Register Forms section.
+users can log in & register, if the entered info passes validations.
 
-## Further help
+# About
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+this is just a normal About section.
+
+# Admin
+
+hidden section that can be accessed only by the admin.
+the admin can edit the store invetory in that section.
