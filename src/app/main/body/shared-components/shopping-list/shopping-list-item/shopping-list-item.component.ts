@@ -15,24 +15,24 @@ export class ShoppingListItemComponent {
   @Input() cartItems: Cart[] = [];
   @Input() cart!: Cart;
   @Input() sender: string;
-  
-  constructor(private shoppingListService: ShoppingListService, private cartService: CartService , private dialogBox: DialogBoxService) {
+
+  constructor(private shoppingListService: ShoppingListService, private cartService: CartService, private dialogBox: DialogBoxService) {
     this.sender = `${ShoppingListTypes.Store}`;
-   }
+  }
 
   onRemoveFromCart(item: Cart) {
     this.dialogBox.show('Remove Item', 'This will remove this item/s from the shopping list, proceed?')
-    .then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(`Confirmed!`, `You've Removed item${item.quantity > 1 ? 's' : ''}: ${item.quantity}${item.quantity > 1 ? ' units of' : ''} ${item.item.title}`, `success`);
-        this.sender == `${ShoppingListTypes.Store}` ?
-          this.shoppingListService.removeFromList(item) :
-          this.cartService.removeFromCart(item);
-      }
-      else {
-        Swal.fire(`Remove Item/s Was Canceled`, `No item was removed from the shopping list.`, `error`);
-      }
-    });
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(`Confirmed!`, `You've Removed item${item.quantity > 1 ? 's' : ''}: ${item.quantity}${item.quantity > 1 ? ' units of' : ''} ${item.item.title}`, `success`);
+          this.sender == `${ShoppingListTypes.Store}` ?
+            this.cartService.removeFromCart(item) :
+            this.cartService.removeFromCart(item);
+        }
+        else {
+          Swal.fire(`Remove Item/s Was Canceled`, `No item was removed from the shopping list.`, `error`);
+        }
+      });
   }
 
   onQuantityChange(quantity: number) {

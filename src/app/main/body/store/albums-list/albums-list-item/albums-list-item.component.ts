@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart } from 'src/app/Interfaces/cart.interface';
 import { StoreItem } from 'src/app/Interfaces/stroe-item.interface';
 import { ShoppingListService } from 'src/app/services/shopping-list.service';
@@ -14,12 +15,16 @@ export class AlbumsListItemComponent {
   @Input() album!: StoreItem;
   currentUserId!: number;
 
-  constructor(private shoppingService: ShoppingListService, private usersService: UsersService) {
+  constructor(private shoppingService: ShoppingListService, private usersService: UsersService, private router: Router) {
     this.currentUserId = this.usersService.loggedInUser === undefined ?
       0 : this.usersService.loggedInUser.id;
   }
 
   addToList(item: Cart) {
     this.shoppingService.addToList(item);
+  }
+
+  onImageClick() {
+    this.router.navigate(['/lightbox', this.album.title]);
   }
 }

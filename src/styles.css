@@ -53,7 +53,7 @@ html, body {
 
 .main-header {
     background-color: rgba(0, 0, 0, .6);
-    background-image: url("assets/Images/Header Background.jpg");
+    background-image: url("assets/Images/Header Background.png");
     background-blend-mode: multiply;
     background-size: cover;
     padding-bottom: 30px;
@@ -98,9 +98,9 @@ html, body {
 }
 
 .main-footer {
-    background-color: #56CCF2;
+    background-color: rgb(0, 0, 0);
+    background-image: url("assets/Images/Header Background.png");
     color: white;
-    padding: .25em 0;
 }
 
 .main-footer-container {
@@ -148,7 +148,7 @@ html, body {
 .btn-play {
     display: block;
     margin: 0 auto;
-    color: #2D9CDB;
+    color: #2ddb5e;
     font-size: 4em;
     border-radius: 50%;
     width: 100px;
@@ -159,7 +159,7 @@ html, body {
 
 .btn-primary {
     color: white;
-    background-color: #56f2a4;
+    background-color: #762424;
     border: none;
     border-radius: .3em;
     font-weight: bold;
@@ -167,14 +167,14 @@ html, body {
 
 .btn-success {
     color: white;
-    background-color: #56CCF2;
+    background-color: #56f25b;
     border: none;
     border-radius: .3em;
     font-weight: bold;
 }
 
 .btn-primary:hover {
-    background-color: #2D9CDB;
+    background-color: #3e1313;
 }
 
 .tour-row {
@@ -354,15 +354,15 @@ html, body {
     width: 170px;
 }
 
-img, button, .form-container, .btn-primary {
-    border: 1px outset rgb(96, 91, 91);
-    box-shadow: 4px 5px #313030;
+img, .form-container, button {
+    border: 3px outset rgb(123, 121, 121);
+    box-shadow: 2px 3px #313030;
 }
 
 .help-block {
     font-weight: bolder;
     color: rgb(44, 9, 9);
-    animation: glow 0.3s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
@@ -372,7 +372,7 @@ img, button, .form-container, .btn-primary {
     }
 
     to {
-        text-shadow: 0 0 1px transparent, 0 0 2px #ff624d, 0 0 3px #ff624d, 0 0 4px #ff624d,
-            0 0 5px #ff624d, 0 0 6px #ff624d, 0 0 7px #ff624d;
+        text-shadow: 0 0 1px transparent, 0 0 2px hwb(7 74% 0%), 0 0 3px hwb(7 74% 0%), 0 0 4px hwb(7 74% 0%),
+            0 0 5px hwb(7 74% 0%), 0 0 6px hwb(7 74% 0%), 0 0 7px hwb(7 74% 0%);
     }
 }

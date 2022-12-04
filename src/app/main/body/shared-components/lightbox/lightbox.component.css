@@ -1,0 +1,36 @@
+img {
+    height: 400px;
+    width: 400px;
+    margin-top: 1%;
+}
+
+p, h1 {
+    margin-top: 2%;
+    text-align: center;
+    font-weight: bolder;
+    color: black;
+}
+
+button {
+    margin-bottom: 1%;
+    margin-top: 0.5%;
+}
+
+.btn-play {
+    margin: auto;
+    font-weight:bolder;
+    font-size:50px;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.099), white);
+    border-color: gray;
+}
+
+.btn-play:hover {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.35), white);
+}
+
+section{
+    margin: auto;
+    margin-bottom: 4%;
+    width: 85%;
+}
+

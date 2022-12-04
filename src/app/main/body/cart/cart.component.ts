@@ -33,8 +33,8 @@ export class CartComponent implements OnInit {
   }
 
   fetchCart() {
-    this.cartService.fetchCart().subscribe(() => {
-      this.shoppingCart = this.cartService.getShoppingCart();
+    this.cartService.fetchCart().subscribe(items => {
+      this.shoppingCart = items;
     });
   }
 

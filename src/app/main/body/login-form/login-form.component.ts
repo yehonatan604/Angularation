@@ -16,15 +16,15 @@ import Swal from 'sweetalert2';
 export class LoginFormComponent implements OnInit {
   constructor(private usersService: UsersService, private str2Md5: Str2Md5Service, private router: Router) { }
   @ViewChild('loginForm') loginForm!: NgForm;
-  
+
   radioValue!: string;
   formUser!: User;
   today!: Date;
   register!: string;
-  
+
   ngOnInit() {
     this.today = new Date();
-    this.register  = `${LoginTypes.Register}`;
+    this.register = `${LoginTypes.Register}`;
   }
 
   onSubmit() {
@@ -48,14 +48,12 @@ export class LoginFormComponent implements OnInit {
       let index: number = users.findIndex(e => e.email === this.formUser.email);
       if (users[index].password == this.formUser.password) {
         this.usersService.addLoginUser(this.formUser);
-
         Swal.fire('Success!', `${this.formUser.userName} logged in successfully.`, `success`)
-
-        this.usersService.fetchItems().subscribe(users => {
-          users[index].authLevel === 2 ?
-            this.router.navigate(['/admin']) :
-            this.router.navigate(['/cart']);
-        });
+          .then(() => this.usersService.fetchItems().subscribe(users => {
+            users[index].authLevel === 2 ?
+              this.router.navigate(['/admin']) :
+              this.router.navigate(['/cart']);
+          }));
       }
       else {
         Swal.fire('Login Failed!', `You've entered wrong password!!!`, 'error');
@@ -65,11 +63,10 @@ export class LoginFormComponent implements OnInit {
 
   onRegister() {
     this.formUser.authLevel = 1;
-    this.formUser.id = this.usersService.getLastId() == 0 ? 1 : + 1;
-    this.usersService.addUser(this.formUser).subscribe(() => {
-      Swal.fire(`${this.formUser.userName} Registered Successfully!`, `you can login now.`, 'success');
-      this.router.navigate(['/login']);
-    });
+    this.formUser.id = this.usersService.getLastId() + 1;
+    this.usersService.addUser(this.formUser);
+    Swal.fire(`${this.formUser.userName} Registered Successfully!`, `you can login now.`, 'success')
+      .then(() => this.router.navigate(['/login']))
   }
 
   onToggleLogin() {

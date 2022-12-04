@@ -1,0 +1,11 @@
+<h2 class="section-header">{{title}}</h2>
+<section class="shop-items">
+    <button class="btn btn-header btn-play" (click)="onClickBack()">&#171;</button>
+    <img src="{{image}}">
+    <button class="btn btn-header btn-play" (click)="onClickNext()">&#187;</button>
+    <div>
+    <p>{{description}}</p>
+    <h1>{{price}}$</h1>
+</div>
+    <button class="btn btn-primary shop-item-button" (click)="onBackToStore()">Back To Store</button>
+</section>

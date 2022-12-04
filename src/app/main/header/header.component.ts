@@ -11,6 +11,6 @@ export class HeaderComponent{
 
   onClick()
   {
-    this.router.navigate(['/store']);
+    this.router.navigate(['/lightbox', 'Album 4']);
   }
 }

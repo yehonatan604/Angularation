@@ -1,52 +1,52 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { AngularFireDatabase } from "@angular/fire/compat/database";
 import { map, Subject } from "rxjs";
 import { Cart } from "../Interfaces/cart.interface";
+import { UsersService } from "./users.service";
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
     itemChanged = new Subject();
-    private cartURL = 'https://band-project-864cf-default-rtdb.firebaseio.com/cart.json';
-    private salesURL = 'https://band-project-864cf-default-rtdb.firebaseio.com/sales.json';
     private shoppingCart!: Cart[];
 
-    constructor(private http: HttpClient) {
-        this.fetchCart().subscribe();
-    }
-
-    fetchCart() {
-        return this.http.get<Cart[]>(this.cartURL)
-            .pipe(map(response => {
-                const tempArr: Cart[] = [];
-                for (let key in response) {
-                    if (response.hasOwnProperty(key)) {
-                        tempArr.push({...response[key]});
-                    }
-                }
-                this.shoppingCart = tempArr;
-                return tempArr;
-            }));
-    }
-
-    updateCart() {
-        this.http.put<Cart[]>(this.cartURL, this.shoppingCart).subscribe(() => {
-            this.itemChanged.next(this.shoppingCart)
+    constructor(private usersService: UsersService, private fireService: AngularFireDatabase) {
+        this.fetchCart().subscribe(items => {
+            this.shoppingCart = items.filter(e => {
+                this.usersService.loggedInUser === undefined ?
+                    e.userId === 0 :
+                    e.userId === this.usersService.loggedInUser.id;
+            });
         });
     }
 
-    getShoppingCart(): Cart[] {
-        return this.shoppingCart;
+    fetchCart() {
+        return this.fireService.list<Cart>('cart').valueChanges()
+            .pipe(map(response => {
+            const tempArr: Cart[] = [];
+            for (let key in response) {
+                if (response.hasOwnProperty(key)) {
+                    tempArr.push({...response[key]});
+                }
+           }
+            this.shoppingCart = tempArr;
+            return tempArr;
+        }));
+    }
+
+    updateCart() {
+            this.fireService.list<Cart>('cart').remove();
+            this.shoppingCart.forEach(item => this.fireService.list<Cart>('cart').push(item));
+            this.itemChanged.next(this.shoppingCart);
     }
 
     addToCart(items: Cart[]) {
-        this.shoppingCart.push(...items);
-        this.updateCart();
+        let index = items.findIndex(e => e.userId === this.usersService.loggedInUser.id);
+        this.fireService.list<Cart>('cart').push(items[index]);
     }
 
     removeFromCart(cart: Cart) {
         this.shoppingCart = this.shoppingCart.filter(items => items.item.title !== cart.item.title);
         this.updateCart();
-        this.itemChanged.next(cart);
     }
 
     changeQuantity(quantity: number, item: Cart) {
@@ -63,7 +63,7 @@ export class CartService {
     }
 
     purchase() {
-        this.http.post<Cart[]>(this.salesURL, this.shoppingCart)
-            .subscribe(() => this.clearCart());
+        this.fireService.list<Cart[]>('sales').push(this.shoppingCart);
+        this.clearCart();
     }
 }

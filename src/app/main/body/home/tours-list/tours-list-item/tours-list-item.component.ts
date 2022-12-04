@@ -37,7 +37,6 @@ export class ToursListItemComponent {
           else {
             this.tours[this.tours.indexOf(tour)].tickets--;
           }
-
           this.toursService.updateTours(this.tours);
         }
         else {

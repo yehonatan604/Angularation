@@ -1,29 +1,25 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs";
 import { User } from "../Interfaces/user.interface";
+import { AngularFireDatabase } from "@angular/fire/compat/database";
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-    constructor(private http: HttpClient) { }
-    private url: string = 'https://band-project-864cf-default-rtdb.firebaseio.com/users.json';
+    users!: User[];
     loggedInUser!: User;
+    num!: number;
+
+    constructor(private fireService: AngularFireDatabase) { 
+        this.fetchItems().subscribe(items => {
+            this.users = items;
+        });
+    }
 
     fetchItems() {
-        return this.http.get<User[]>(this.url)
-            .pipe(map(response => {
-                const tempArr: User[] = [];
-                for (let key in response) {
-                    if (response.hasOwnProperty(key)) {
-                        tempArr.push({ ...response[key] });
-                    }
-                }
-                return tempArr;
-            }));
+        return this.fireService.list<User>('users').valueChanges();
     }
 
     addUser(user: User) {
-        return this.http.post<User[]>(this.url, user);
+        this.fireService.list<User>('users').push(user);
     }
 
     addLoginUser(user: User) {
@@ -34,8 +30,6 @@ export class UsersService {
     }
 
     getLastId(): number {
-        let num!: number;
-        this.fetchItems().subscribe(users => {users.reduce((res, curr) => { return res = curr.id }, 0)})
-        return num;
+        return this.users.length - 1;
     }
 }
