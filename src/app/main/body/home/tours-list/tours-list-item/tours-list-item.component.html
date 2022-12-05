@@ -6,9 +6,9 @@
         <button type="button" class="tour-item tour-btn btn btn-primary" (click)="onBuyTicket(currentTour)"
                 *ngIf="!currentTour.sold">BUY TICKETS</button>
         <span [ngClass]="isHovering && !currentTour.sold ? 'balloon' : 'timeLeft'">
-                Days Left: {{countDown(currentTour.date)}}<br>
-                Tickets Left: {{currentTour.tickets}}<br>
-                Price: {{currentTour.price}}<br>
+                Days Left: <mark>{{countDown(currentTour.date)}}</mark> |
+                Tickets Left: <mark>{{currentTour.tickets}}</mark> | 
+                Price: <mark>{{currentTour.price}}$</mark>
         </span>
         <hr>
 </div>

@@ -1,9 +1,8 @@
 .balloon {
     display:block;
+    margin: auto;
     font-weight: bold;
-    text-align: center;
     margin-top: 2.5%;
-    border: 1px solid black;
 }
 
 .timeLeft {

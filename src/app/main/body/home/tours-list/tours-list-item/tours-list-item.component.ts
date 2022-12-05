@@ -50,6 +50,6 @@ export class ToursListItemComponent {
     let now = new Date().getTime();
     let difference = countDownDate - now;
     let days = Math.floor(difference / 1000 / 60 / 60 / 24);
-    return `${days} Days`;
+    return `${days}`;
   }
 }

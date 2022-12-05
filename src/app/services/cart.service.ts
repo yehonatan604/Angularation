@@ -40,7 +40,9 @@ export class CartService {
     }
 
     addToCart(items: Cart[]) {
-        let index = items.findIndex(e => e.userId === this.usersService.loggedInUser.id);
+        let index = this.usersService.loggedInUser !== undefined ? 
+         items.findIndex(e => {e.userId === this.usersService.loggedInUser.id}) :
+         0;
         this.fireService.list<Cart>('cart').push(items[index]);
     }
 

@@ -13,8 +13,6 @@ export class ShoppingListComponent implements OnInit {
   @Input() sender!: string;
 
   ngOnInit(): void {
-    this.shoppingListService.itemChanged.subscribe(()=> {
-      this.currentCart = this.shoppingListService.getShoppingCart()
-    });
+      this.currentCart = this.shoppingListService.getShoppingCart();
   }
 }

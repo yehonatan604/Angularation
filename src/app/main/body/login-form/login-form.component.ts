@@ -14,7 +14,10 @@ import Swal from 'sweetalert2';
   providers: [Str2Md5Service]
 })
 export class LoginFormComponent implements OnInit {
-  constructor(private usersService: UsersService, private str2Md5: Str2Md5Service, private router: Router) { }
+  constructor(private usersService: UsersService, 
+              private str2Md5: Str2Md5Service, 
+              private router: Router) { }
+  
   @ViewChild('loginForm') loginForm!: NgForm;
 
   radioValue!: string;
@@ -27,20 +30,20 @@ export class LoginFormComponent implements OnInit {
     this.register = `${LoginTypes.Register}`;
   }
 
-  onSubmit() {
-    this.assignUser();
-    this.radioValue === `${LoginTypes.Register}` ? this.onRegister() : this.onLogin();
-  }
-
   assignUser() {
     this.formUser = {
-      id: 0,
+      id: this.usersService.getLastId() + 1,
       userName: this.loginForm.value.formGroup.userName,
       dob: this.loginForm.value.formGroup.dob,
       email: this.loginForm.value.formGroup.email,
       password: this.str2Md5.md5(this.loginForm.value.formGroup.password),
-      authLevel: 0
+      authLevel: 1
     }
+  }
+
+  onSubmit() {
+    this.assignUser();
+    this.radioValue === `${LoginTypes.Register}` ? this.onRegister() : this.onLogin();
   }
 
   onLogin() {
@@ -62,9 +65,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   onRegister() {
-    this.formUser.authLevel = 1;
-    this.formUser.id = this.usersService.getLastId() + 1;
-    this.usersService.addUser(this.formUser);
+    this.usersService.fetchItems().subscribe(users => {
+      users.findIndex(e => e.email === this.formUser.email) ?
+        this.usersService.addUser(this.formUser) :
+        Swal.fire('Email already registered!', 'Please enter other email address', 'error');
+    });
     Swal.fire(`${this.formUser.userName} Registered Successfully!`, `you can login now.`, 'success')
       .then(() => this.router.navigate(['/login']))
   }

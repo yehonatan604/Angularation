@@ -3,12 +3,13 @@ import { Subject } from "rxjs";
 import { Cart } from "../Interfaces/cart.interface";
 import { CartService } from "./cart.service";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ShoppingListService {
     itemChanged = new Subject();
-    private shoppingList: Cart[] = []
+    private shoppingList: Cart[] = [];
 
     constructor(private cartService: CartService) { 
+        console.log(this.shoppingList);
     }
 
     getShoppingCart(): Cart[] {

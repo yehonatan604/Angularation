@@ -14,18 +14,18 @@
         <div>
             <label for="location">Location</label>
             <input type="text" id="location" class="form-control" ngModel #location="ngModel" name="location" required
-                pattern="(?=.*[a-z]).{3,}">
+                pattern="(?=.*[a-z])(?=.*[A-Z]).{3,20}">
             <span class="help-block" *ngIf="!location.valid && location.touched">
-                Please enter a location!
+                Please enter a  valid location with at least<br>1 Capital Character!
             </span>
             <hr>
         </div>
         <div>
             <label for="arena">Arena</label>
             <input type="text" id="arena" class="form-control" ngModel #arena="ngModel" name="arena" required
-                pattern="(?=.*[a-z]).{3,}">
+                pattern="(?=.*[a-z])(?=.*[A-Z]).{3,20}">
             <span class="help-block" *ngIf="!arena.valid && arena.touched">
-                Please enter an arena!
+                Please enter a valid arena with at least<br>1 Capital Character!
             </span>
             <hr>
         </div>
@@ -34,7 +34,7 @@
             <input type="number" id="price" class="form-control" ngModel #price="ngModel" min="1" name="price" required
                 number>
             <span class="help-block" *ngIf="!price.valid && price.touched">
-                Please enter price!
+                Please enter a valid price!
             </span>
             <hr>
         </div>
@@ -43,7 +43,7 @@
             <input type="number" id="tickets" class="form-control" ngModel #tickets="ngModel" min="1" name="tickets"
                 required number>
             <span class="help-block" *ngIf="!tickets.valid && tickets.touched">
-                Please enter tickets sum!
+                Please enter valid tickets quantity!
             </span>
             <hr>
         </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ShoppingListTypes } from 'src/app/enums/shopping-list-types.enum';
 import { Cart } from 'src/app/Interfaces/cart.interface';
 import { DialogBoxService } from 'src/app/services/dialog-box.service';
@@ -14,7 +15,9 @@ export class StoreComponent implements OnInit {
   cartItems!: Cart[];
   shoppingListType = `${ShoppingListTypes.Store}`;
 
-  constructor(private shoppingListService: ShoppingListService, private dialogBox: DialogBoxService) {
+  constructor(private shoppingListService: ShoppingListService, 
+              private dialogBox: DialogBoxService, 
+              private router: Router) {
   }
   
   ngOnInit(): void {
@@ -36,5 +39,9 @@ export class StoreComponent implements OnInit {
         Swal.fire(`Add To Cart Was Canceled`, `You can still change your mind....`, `error`);
       }
     });
+  }
+
+  onGoToCart() {
+    this.router.navigate(['/cart']);
   }
 }

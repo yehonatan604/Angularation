@@ -8,6 +8,7 @@ import { HeaderComponent } from './main/header/header.component';
 import { NavBarComponent } from './main/nav-bar/nav-bar.component';
 import { FooterComponent } from './main/footer/footer.component';
 import { MainAppModule } from './modules/main-app.module';
+import { ShoppingListService } from './services/shopping-list.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { MainAppModule } from './modules/main-app.module';
     MainAppModule, 
     RoutingModule.routeIT,
   ],
-  providers: [],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

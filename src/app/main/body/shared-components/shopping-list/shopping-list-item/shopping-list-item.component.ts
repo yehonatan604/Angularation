@@ -14,10 +14,11 @@ import Swal from 'sweetalert2';
 export class ShoppingListItemComponent {
   @Input() cartItems: Cart[] = [];
   @Input() cart!: Cart;
-  @Input() sender: string;
+  @Input() sender = `${ShoppingListTypes.Store}`;
 
-  constructor(private shoppingListService: ShoppingListService, private cartService: CartService, private dialogBox: DialogBoxService) {
-    this.sender = `${ShoppingListTypes.Store}`;
+  constructor(private shoppingListService: ShoppingListService, 
+              private cartService: CartService, 
+              private dialogBox: DialogBoxService) {
   }
 
   onRemoveFromCart(item: Cart) {

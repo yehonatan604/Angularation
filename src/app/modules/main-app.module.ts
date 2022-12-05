@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 import { AboutComponent } from '../main/body/about/about.component';
 import { HomeComponent } from '../main/body/home/home.component';
@@ -31,15 +32,7 @@ import { LightboxComponent } from '../main/body/shared-components/lightbox/light
     HttpClientModule,
   
     AdminModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyBb0tt5bI8SREDbu70x91QRWpSTpsCbKZY",
-        authDomain: "band-project-864cf.firebaseapp.com",
-        databaseURL: "https://band-project-864cf-default-rtdb.firebaseio.com",
-        projectId: "band-project-864cf",
-        storageBucket: "band-project-864cf.appspot.com",
-        messagingSenderId: "152235857486",
-        appId: "1:152235857486:web:f84c057253bf154100d51f"
-    }),
+    AngularFireModule.initializeApp(environment.fireBaseApiCredentials),
     AngularFireDatabaseModule,
   ],
   declarations:[
@@ -64,6 +57,6 @@ import { LightboxComponent } from '../main/body/shared-components/lightbox/light
 
     ShortFloatPipe,
     GetTotalPipe,
-]
+],
 })
 export class MainAppModule  { }

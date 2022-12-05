@@ -1,21 +1,23 @@
-<div class="row container">
+<section class="container content-section">
     <h2 class="section-header">Login/Register</h2>
-    <div class="col-xs-12 col-md-12 col-md-offset-8">
-        <div class="radio-container">
-            <label for="login" id="login-label">LOGIN</label>
-            <input type="radio" id="login" name="loginToggle" checked="checked" (click)="onToggleLogin()">
-            <label for="login" id="register-label">REGISTER</label>
-            <input type="radio" id="register" name="loginToggle" (click)="onToggleRegister()">
-        </div>
+    <div>
+
         <form #loginForm="ngForm" class="form-group" (ngSubmit)="onSubmit()">
             <div ngModelGroup="formGroup" class="form-container">
+                <div class="radios-container">
+                    <label for="login" id="login-label">LOGIN</label>
+                    <input type="radio" id="login" name="loginToggle" checked="checked" (click)="onToggleLogin()">
+                    <br>
+                    <label for="login" id="register-label">REGISTER</label>
+                    <input type="radio" id="register" name="loginToggle" (click)="onToggleRegister()">
+                </div>
                 <div *ngIf="radioValue === register">
                     <div>
                         <label for="userName">* User Name</label>
                         <input type="text" id="userName" class="form-control" ngModel #userName="ngModel"
-                            name="userName" required pattern="(?=.*[a-z]).{3,} (?=.*[a-z]).{3,}">
-                        <span class="help-block" *ngIf="!userName.valid && userName.touched">Please enter a user
-                            name!</span>
+                            name="userName" required pattern="(?=.*[a-z])(?=.*[A-Z]).{3,20}">
+                        <span class="help-block" *ngIf="!userName.valid && userName.touched">Please enter a valid user
+                            name with at least 1 Capital Character!</span>
                         <hr>
                     </div>
                     <div>
@@ -37,11 +39,11 @@
                     <label for="password">* Password</label>
                     <input type="password" id="password" class="form-control" ngModel #password="ngModel"
                         name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                    <span class="help-block" *ngIf="!password.valid && password.touched">Please enter password!</span>
+                    <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a valid password<br>with at least 1 Capital Character, <br>at least 1 number, 8 characters minimum!</span>
                     <hr>
                 </div>
                 <button type="Submit" class="btn btn-primary btn-purchase" [disabled]="!loginForm.valid">Go</button>
             </div>
         </form>
     </div>
-</div>
+</section>

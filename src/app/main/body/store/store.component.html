@@ -9,5 +9,8 @@
 <section class="container content-section">
     <h2 class="section-header">SHOPPING LIST</h2>
     <app-shopping-list [currentCart]="cartItems" [sender]="shoppingListType"></app-shopping-list>
-    <button class="btn btn-primary btn-purchase" type="button" (click)="onAddToCart()">ADD TO CART</button>
 </section>
+<div class="buttons-container">
+    <button class="btn btn-primary" type="button" (click)="onAddToCart()">ADD TO CART</button>
+    <button class="btn btn-success" type="button" (click)="onGoToCart()">GO TO CART</button>
+</div>

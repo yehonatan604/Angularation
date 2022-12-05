@@ -363,6 +363,7 @@ img, .form-container, button {
     font-weight: bolder;
     color: rgb(44, 9, 9);
     animation: glow 1s ease-in-out infinite alternate;
+    text-align: center;
 }
 
 @keyframes glow {

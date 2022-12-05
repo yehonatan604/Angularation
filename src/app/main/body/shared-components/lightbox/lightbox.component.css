@@ -16,6 +16,11 @@ button {
     margin-top: 0.5%;
 }
 
+.shop-item-button {
+    margin-top: 3%;
+    width:35%;
+}
+
 .btn-play {
     margin: auto;
     font-weight:bolder;
@@ -32,5 +37,18 @@ section{
     margin: auto;
     margin-bottom: 4%;
     width: 85%;
+}
+
+.buttons-container {
+    margin: auto;
+    display: flex;
+    width:95%;
+}
+
+.btn {
+    width:40% auto;
+    margin:auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
